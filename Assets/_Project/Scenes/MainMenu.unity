@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b30c7c8db644d8b87f49328539e2bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sessionPrefab: {fileID: 1361470124289742923, guid: 0f8c5f740c3f0b44f896d3c31f098b93, type: 3}
+  _fusionConnector: {fileID: 6675909197374762924, guid: 776e681043183c945a06b8fd36015806, type: 3}
   _startMenuView: {fileID: 475584181}
   _createdRoomView: {fileID: 1688534249}
 --- !u!1001 &2434492416465432685

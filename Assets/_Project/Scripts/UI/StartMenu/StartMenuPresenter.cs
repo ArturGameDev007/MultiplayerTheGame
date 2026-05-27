@@ -1,12 +1,12 @@
+using _Project.Scripts.Services.PhotonFusion;
 using Fusion;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace _Project.Scripts.UI.StartMenu
 {
     public class StartMenuPresenter : MonoBehaviour
     {
-        [SerializeField] private NetworkRunner _sessionPrefab;
+        [SerializeField] private FusionConnector _fusionConnector;
         [SerializeField] private StartMenuView _startMenuView;
         [SerializeField] private CreatedRoomView _createdRoomView;
 
@@ -40,7 +40,7 @@ namespace _Project.Scripts.UI.StartMenu
             _startMenuView.gameObject.SetActive(false);
             _createdRoomView.gameObject.SetActive(true);
 
-            StartFusionSession(GameMode.Host, randomID);
+            _fusionConnector.StartFusionSession(GameMode.Host, randomID);
         }
 
         private void OnJoinButtonClicked()
@@ -63,30 +63,7 @@ namespace _Project.Scripts.UI.StartMenu
 
             _startMenuView.gameObject.SetActive(false);
 
-            StartFusionSession(GameMode.Client, enterIdRoom);
-        }
-
-        private void StartFusionSession(GameMode mode, string roomName)
-        {
-            if (_sessionPrefab == null)
-                return;
-
-            NetworkRunner currentRunner = Instantiate(_sessionPrefab);
-            currentRunner.name = "PhotonSession";
-
-            var sceneManager = currentRunner.GetComponent<NetworkSceneManagerDefault>();
-
-            int gameplaySceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-
-            currentRunner.StartGame(new StartGameArgs()
-            {
-                GameMode = mode,
-                SessionName = roomName,
-                Scene = SceneRef.FromIndex(gameplaySceneIndex),
-                SceneManager = sceneManager
-            });
-
-            Debug.Log($"Сеть запущена в режиме: {mode}. Комната: {roomName}");
+            _fusionConnector.StartFusionSession(GameMode.Client, enterIdRoom);
         }
     }
 }
